@@ -7,6 +7,7 @@ import { registerArtistCommand } from './commands/artist.js';
 import { registerReleasesCommand } from './commands/releases.js';
 import { registerTrackCommand } from './commands/track.js';
 import { registerDiscographyCommand } from './commands/discography.js';
+import { registerLoginCommand } from './commands/login.js';
 
 const program = new Command()
   .name('qobuz-dl')
@@ -20,5 +21,6 @@ registerArtistCommand(program);
 registerReleasesCommand(program);
 registerTrackCommand(program);
 registerDiscographyCommand(program);
+registerLoginCommand(program);
 
 program.parse();
