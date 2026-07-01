@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { getAlbumInfo } from '../lib/qobuz-api.js';
+import { getAlbumInfo, search } from '../lib/qobuz-api.js';
 import { buildConfig, type RawConfig } from '../lib/config.js';
 import { downloadTrack } from '../lib/download.js';
 import { codecMap } from '../lib/metadata.js';
@@ -30,9 +30,7 @@ export function registerTrackCommand(program: Command): void {
         const config = buildConfig(overrides);
         const trackId = Number(idOrUrl.replace(/.*\/(track\/)?/, ''));
 
-        // We need album context for metadata. Use a placeholder album fetch is not possible
-        // without an album id, so fetch track info through search as a fallback.
-        const { search } = await import('../lib/qobuz-api.js');
+        // We need album context for metadata. Fetch track info through search as a fallback.
         const searchResults = await search(config, String(trackId), 1, 0, { country: options.country });
         const track = searchResults.tracks.items.find((t) => t.id === trackId);
         if (!track) {
